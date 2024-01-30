@@ -21,4 +21,4 @@ steps:
       - "--allow-unauthenticated"
 images:
   - "gcr.io/$PROJECT_ID/deployment-SAD:$COMMIT_SHA"
-logsBucket: "gs://laravel-buckets/logs"
+logsBucket: "gs://laravel-docker-final/logs"
