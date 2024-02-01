@@ -11,10 +11,9 @@ steps:
       - "gcr.io/$PROJECT_ID/deploy-SAD:$COMMIT_SHA"
   - name: "gcr.io/cloud-builders/gcloud"
     args:
-      - "beta"
       - "run"
       - "deploy"
-      - "deployment-SAD"
+      - "deploy-SAD"
       - "--image=gcr.io/$PROJECT_ID/deploy-SAD:$COMMIT_SHA"
       - "--region=asia-southeast2"
       - "--cpu=2"
