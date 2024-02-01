@@ -3,7 +3,6 @@ steps:
     args: ["clone", "--branch", "$BRANCH_NAME", "--depth", "1", "https://github.com/your/repository.git", "."]
   - name: "gcr.io/cloud-builders/docker"
     args: ["build", "-t", "gcr.io/$PROJECT_ID/deploy-SAD:$COMMIT_SHA", "."]
-
   - name: gcr.io/cloud-builders/docker
     args:
       - "push"
