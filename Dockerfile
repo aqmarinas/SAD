@@ -3,6 +3,8 @@ FROM php:8.2-cli
 COPY . /app
 COPY .env.example /app/.env
 
+WORKDIR /app
+
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -12,14 +14,15 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zip 
 
-RUN curl -sS https://getcomposer.org/installer | php -- \
-    --install-dir=/usr/bin --filename=composer
+RUN docker-php-ext-install pdo_mysql 
 
-RUN cd /app && composer update
-RUN cd /app && php artisan key:generate
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer install --no-scripts
 
-WORKDIR /app
+RUN composer update
 
-CMD php artisan serve --host=0.0.0.0 --port=8080
+RUN php artisan key:generate
 
 EXPOSE 8080
+
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8080
